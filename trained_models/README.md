@@ -1,0 +1,1 @@
+You can download the pre-trained model for meta learning at [this link](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoDiff/ckpt_49.pth?csf=1&web=1&e=z2rETv)

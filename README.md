@@ -35,3 +35,7 @@ pip install -r requirements.txt
    ```bash
    python few-shot-learning.py --input-folder evaluation-datasets/custom-dataset/forest
    ```
+   
+### Experimental Result
+
+   Download the experimental results presented in the paper from [here](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoDiff/ckpt_49.pth?csf=1&web=1&e=z2rETv)

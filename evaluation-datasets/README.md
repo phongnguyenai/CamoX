@@ -1,1 +1,1 @@
-You can download the dataset for meta learning at [this link](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoDiff/evaluation-datasets.zip?csf=1&web=1&e=yJ2roJ)
+You can download the evaluation dataset for few-shot learning at [this link](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoDiff/evaluation-datasets.zip?csf=1&web=1&e=yJ2roJ)

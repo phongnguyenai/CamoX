@@ -38,4 +38,4 @@ pip install -r requirements.txt
    
 ## Experimental Result
 
-   Download the experimental results presented in the paper from [here]([https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoDiff/ckpt_49.pth?csf=1&web=1&e=z2rETv](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoDiff/experimental-results.zip?csf=1&web=1&e=gf0nOt))
+   Download the experimental results presented in the paper from [here](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoDiff/experimental-results.zip?csf=1&web=1&e=ZRvPzn).

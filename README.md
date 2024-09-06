@@ -11,8 +11,8 @@ pip install -r requirements.txt
 
 ## Meta Learning
 
-1. **Download Dataset:**  
-   Get the dataset for meta-learning from [this link](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoDiff/evaluation-datasets.zip?csf=1&web=1&e=yJ2roJ).
+1. **Download the Proposed Dataset:**  
+   Get the proposed dataset for meta-learning from [this link]([https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoDiff/evaluation-datasets.zip?csf=1&web=1&e=yJ2roJ](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoDiff/proposed-dataset.zip?csf=1&web=1&e=nbgnIu)).
 
 2. **Re-train the Meta Learning Model:**  
    Run the following command to start training:

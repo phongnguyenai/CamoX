@@ -1,5 +1,5 @@
 
-# CamoDiff
+# CamoX
 
 ## Installation
 

@@ -1,1 +1,1 @@
-You can download the proposed dataset for meta learning at [this link](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoX/Camo-Meta.zip?csf=1&web=1&e=s0J0DB)
+You can download the Camo-Meta dataset for meta learning at [this link](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoX/Camo-Meta.zip?csf=1&web=1&e=s0J0DB)

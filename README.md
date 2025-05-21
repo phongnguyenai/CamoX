@@ -21,7 +21,7 @@ pip install -r requirements.txt
    python meta-learning.py
    ```
 
-   Alternatively, you can download a pre-trained model from [here](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoDiff/ckpt_49.pth?csf=1&web=1&e=POsWOV).  
+   Alternatively, you can download a pre-trained model from [here](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoX/ckpt_49.pth?csf=1&web=1&e=6jX5ob).  
    Place the downloaded model in the `trained_models/` directory.
 
 ## Few-shot Learning

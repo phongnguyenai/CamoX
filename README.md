@@ -13,6 +13,7 @@ pip install -r requirements.txt
 
 1. **Download the Camo-Meta Dataset:**  
    Get the proposed dataset for meta-learning from [this link](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoX/Camo-Meta.zip?csf=1&web=1&e=2bAVjf).
+
    Or re-generate the Camo-Meta with the code provided in the Camo-Meta-reproducibility directory.
    
 1. **Re-train the Meta Learning Model:**  

@@ -1,9 +1,11 @@
 
 # CamoX
 
-This work is a collaboration between the Defence Innovation Network and the University of Wollongong, Australia. Some content is accessible only upon request, please contact the authors for access.
+This work is a collaboration between the Defence Innovation Network and the University of Wollongong, Australia.  
 
-**Prof. Son Lam Phung** at [phung@uow.edu.au](mailto:phung@uow.edu.au).
+Some content is available only upon request. For access, please contact:  
+
+**Prof. Son Lam Phung** — [phung@uow.edu.au](mailto:phung@uow.edu.au)
 
 ## A. Installation
 

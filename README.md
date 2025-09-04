@@ -1,6 +1,10 @@
 
 # CamoX
 
+This work is a collaboration between the Defence Innovation Network and the University of Wollongong, Australia. Some content is accessible only upon request, please contact the authors for access.
+
+**Prof. Son Lam Phung** at [phung@uow.edu.au](mailto:phung@uow.edu.au).
+
 ## A. Installation
 
 To install the required dependencies, run:

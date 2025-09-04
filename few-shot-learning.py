@@ -17,123 +17,164 @@ import matplotlib.pyplot as plt
 import pickle
 import argparse
 
+# ------------------------------------------------------
+# Helper functions
+# ------------------------------------------------------
+
 def generate_results(latent):    
+    """Decode latent tensor back into list of PIL images."""
     with torch.no_grad():
-        decoded = vae.decode(latent / 0.18215).sample
-        image_tensor = (decoded + 1) / 2  # Rescale to [0, 1]
-        image_tensor = torch.clamp(image_tensor, 0, 1)
+        decoded = vae.decode(latent / 0.18215).sample  # Decode latent (divide by scale factor)
+        image_tensor = (decoded + 1) / 2               # Rescale from [-1, 1] → [0, 1]
+        image_tensor = torch.clamp(image_tensor, 0, 1) # Ensure valid pixel range
         lst = []
         for i in range(image_tensor.shape[0]):
             lst.append(tfms.ToPILImage()(image_tensor[i]))
         return lst
 
-# Convert latents to PIL images
 def latent_to_img(latent):
+    """Decode latent to image tensor (not PIL)."""
     decoded = vae.decode(latent / 0.18215).sample
     image_tensor = (decoded + 1) / 2  # Rescale to [0, 1]
     image_tensor = torch.clamp(image_tensor, 0, 1)
     return image_tensor
 
-# Convert PIL images to latents
 def img_to_latent(input_im):
+    """Encode an input image tensor into VAE latent space."""
     with torch.no_grad():
-        latent = vae.encode(input_im) # Note scaling
-    return 0.18215 * latent.latent_dist.sample()
+        latent = vae.encode(input_im)  # Encode to distribution
+    return 0.18215 * latent.latent_dist.sample()  # Apply SD scaling factor
 
 def latent_loss(latent, total_scenes, target_latents):
+    """
+    Compute average L1 loss between current latent and a set of target latents.
+    Latent is repeated across all target scenes for comparison.
+    """
     latent_repeat = latent.repeat(total_scenes, 1, 1, 1)
     error = torch.abs(latent_repeat - target_latents).mean()
     return error
 
+if __name__ == "__main__":
+    # ------------------------------------------------------
+    # Argument parsing
+    # ------------------------------------------------------
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--pretrained", help="pth file", default="trained-models/ckpt_49.pt")
-parser.add_argument("--input-folder", help="input folder", default="evaluation-datasets/custom-dataset/forest")
-parser.add_argument("--guidance-factor", help="guidance factor", default=40)
-parser.add_argument("--timesteps", help="number of timesteps/epochs", default=200)
-parser.add_argument("--output-file", help="output file name", default="output.png")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--pretrained", help="pth file", default="trained-models/ckpt_49.pt")
+    parser.add_argument("--input-folder", help="input folder", default="evaluation-datasets/custom-dataset/forest")
+    parser.add_argument("--guidance-factor", help="guidance factor", default=40)
+    parser.add_argument("--timesteps", help="number of timesteps/epochs", default=200)
+    parser.add_argument("--output-file", help="output file name", default="output.png")
 
-args = parser.parse_args()
+    args = parser.parse_args()
 
-noise_scheduler = DDPMScheduler(num_train_timesteps=args.timesteps)
+    # ------------------------------------------------------
+    # Model & scheduler setup
+    # ------------------------------------------------------
 
-# Unet model
-model = UNet2DModel(
-    sample_size=64,  # the target image resolution
-    in_channels=4,  # the number of input channels
-    out_channels=4,  # the number of output channels
-    class_embed_type='timestep',
-    num_class_embeds=3,
-).cuda()
+    # Diffusion noise scheduler
+    noise_scheduler = DDPMScheduler(num_train_timesteps=args.timesteps)
 
-model.load_state_dict(torch.load(args.pretrained))
-model.eval()
+    # Define UNet denoising model (operates in latent space)
+    model = UNet2DModel(
+        sample_size=64,   # Latent resolution (64x64 for 512x512 images)
+        in_channels=4,    # Latent channels
+        out_channels=4,   # Output channels (predict noise in latent space)
+        class_embed_type='timestep',
+        num_class_embeds=3,  # Number of discrete condition classes
+    ).cuda()
 
-vae = AutoencoderKL.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="vae").to('cuda')
-vae.eval()
+    # Load pretrained model weights
+    model.load_state_dict(torch.load(args.pretrained))
+    model.eval()
 
-target_path = args.input_folder
-target_files = [f for f in listdir(target_path) if isfile(join(target_path, f))]
-target_lst = []
+    # Load pretrained VAE for encoding/decoding latents
+    vae = AutoencoderKL.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="vae").to('cuda')
+    vae.eval()
 
-for file in target_files:
-    # target_image = Image.open(f"{target_path}/{file}")
-    target_image = Image.open(join(target_path, file))
-    target_image = target_image.resize((500,500))
-    
-    for i in range(10):
-        x1 = random.randrange(0, 400)
-        y1 = random.randrange(0, 400)
-        visualize_img = target_image.crop((x1, y1, x1 + 100, y1 + 100))
-        crop_img = visualize_img.resize((512,512))
-     
-        crop_img = tfms.ToTensor()(crop_img)*2-1
-        crop_img = crop_img[:3,:,:]
-        crop_img = crop_img.unsqueeze(0).cuda()
-        target_latent = img_to_latent(crop_img).squeeze()
+    # ------------------------------------------------------
+    # Prepare target latents
+    # ------------------------------------------------------
+
+    target_path = args.input_folder
+    target_files = [f for f in listdir(target_path) if isfile(join(target_path, f))]
+    target_lst = []
+
+    for file in target_files:
+        # Open image
+        target_image = Image.open(join(target_path, file))
+        target_image = target_image.resize((500,500))  # Resize for consistency
         
-        target_lst.append(target_latent)
+        # Extract 10 random crops from each image
+        for i in range(10):
+            x1 = random.randrange(0, 400)
+            y1 = random.randrange(0, 400)
+            
+            # Crop 100x100 patch
+            visualize_img = target_image.crop((x1, y1, x1 + 100, y1 + 100))
+            crop_img = visualize_img.resize((512,512))  # Resize patch to 512x512
+            
+            # Convert to tensor in [-1, 1]
+            crop_img = tfms.ToTensor()(crop_img)*2-1
+            crop_img = crop_img[:3,:,:]                 # Keep RGB only
+            crop_img = crop_img.unsqueeze(0).cuda()     # Add batch dimension
+            
+            # Encode to latent
+            target_latent = img_to_latent(crop_img).squeeze()
+            target_lst.append(target_latent)
 
-target_latents = torch.stack(target_lst).cuda()
-total_scenes = len(target_latents)
+    # Stack all target latents
+    target_latents = torch.stack(target_lst).cuda()
+    total_scenes = len(target_latents)
 
-# The guidance scale determines the strength of the effect
-guidance_loss_scale = args.guidance_factor
-device = "cuda"
-batch = 1
+    # ------------------------------------------------------
+    # Guided sampling
+    # ------------------------------------------------------
 
-x = torch.randn(batch, 4, 64, 64).to(device)
-cond = torch.randint(low=0, high=3, size=(batch,)).cuda()
+    # Scale factor for guidance loss
+    guidance_loss_scale = args.guidance_factor
+    device = "cuda"
+    batch = 1
 
-for i, t in tqdm(enumerate(noise_scheduler.timesteps)):
-    x = x.detach().requires_grad_()
+    # Start from random noise
+    x = torch.randn(batch, 4, 64, 64).to(device)
+    # Random conditioning label
+    cond = torch.randint(low=0, high=3, size=(batch,)).cuda()
 
-    # Prepare the model input
-    noisy_latents = noise_scheduler.scale_model_input(x, t)
+    # Iterative reverse diffusion
+    for i, t in tqdm(enumerate(noise_scheduler.timesteps)):
+        x = x.detach().requires_grad_()
 
-                                            
-    # Predict the noise residual
-    noise_pred = model(noisy_latents, t, class_labels=cond)['sample']
+        # Scale latent input for current timestep
+        noisy_latents = noise_scheduler.scale_model_input(x, t)
 
-    # Get the predicted x0
-    x0 = noise_scheduler.step(noise_pred, t, x).pred_original_sample
+        # Predict noise with UNet
+        noise_pred = model(noisy_latents, t, class_labels=cond)['sample']
 
-    # kl_loss = kl_divergence_loss(images, target_image)*guidance_loss_scale
-    loss = latent_loss(x0, total_scenes, target_latents)*guidance_loss_scale
-    
-    if i % 10 == 0:
-        print(i, "loss:", loss.item())
+        # Predicted denoised latent x0
+        x0 = noise_scheduler.step(noise_pred, t, x).pred_original_sample
 
-    # Get gradient
-    cond_grad = -torch.autograd.grad(loss, x)[0]
+        # Compute guidance loss with respect to target latents
+        loss = latent_loss(x0, total_scenes, target_latents)*guidance_loss_scale
+        
+        if i % 10 == 0:
+            print(i, "loss:", loss.item())
 
-    # Modify x based on this gradient
-    x = x.detach() + cond_grad
+        # Compute gradient of loss w.r.t. x
+        cond_grad = -torch.autograd.grad(loss, x)[0]
 
-    # Now step with scheduler
-    x = noise_scheduler.step(noise_pred, t, x).prev_sample
+        # Update latent using guidance gradient
+        x = x.detach() + cond_grad
 
-# Camouflage Detection
-generated = generate_results(x)
-camou = generated[0]
-camou.save(args.output_file)
+        # Perform diffusion step (reverse process)
+        x = noise_scheduler.step(noise_pred, t, x).prev_sample
+
+    # ------------------------------------------------------
+    # Decode & save result
+    # ------------------------------------------------------
+
+    # Decode final latent to image
+    generated = generate_results(x)
+    camou = generated[0]
+    # Save camouflage result
+    camou.save(args.output_file)

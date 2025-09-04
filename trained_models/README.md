@@ -1,1 +1,1 @@
-You can download the pre-trained model for meta learning at [this link](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoX/ckpt_49.pth?csf=1&web=1&e=dUBCbG)
+The pre-trained model for meta learning can be downloaded at [this link](https://uowmailedu-my.sharepoint.com/:u:/g/personal/ttpn997_uowmail_edu_au/EYDwMNusqgRKq29ICeSs6jABFQRxMfR7j1WMGBjNz6jJTA?e=8DLFVl)

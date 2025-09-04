@@ -23,7 +23,7 @@ pip install -r requirements.txt
    python meta-learning.py
    ```
 
-   Alternatively, you can download a pre-trained model from [here](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoX/ckpt_49.pth?csf=1&web=1&e=6jX5ob).  
+   Alternatively, you can download a pre-trained model from [here](https://uowmailedu-my.sharepoint.com/:u:/g/personal/ttpn997_uowmail_edu_au/EYDwMNusqgRKq29ICeSs6jABFQRxMfR7j1WMGBjNz6jJTA?e=8DLFVl).  
    Place the downloaded model in the `trained_models/` directory.
 
 ## C. Few-shot Learning
@@ -43,4 +43,4 @@ pip install -r requirements.txt
 
 ## E. Experimental Results
 
-   Download the experimental results presented in the paper from [here](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoX/experimental-results.zip?csf=1&web=1&e=jAl1mT).
+   Download the experimental results presented in the paper from [here](https://uowmailedu-my.sharepoint.com/:u:/g/personal/ttpn997_uowmail_edu_au/EaNjxqNJHy9In1jvPD0bENAB3yvtKyw6jzdciwjWVpOGAA?e=2p0dJE).

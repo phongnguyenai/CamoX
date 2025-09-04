@@ -1,7 +1,7 @@
 
 # CamoX
 
-## Installation
+## A. Installation
 
 To install the required dependencies, run:
 
@@ -9,7 +9,7 @@ To install the required dependencies, run:
 pip install -r requirements.txt
 ```
 
-## Meta Learning
+## B. Meta Learning
 
 1. **Download the Camo-Meta Dataset:**  
    To download the Camo-Meta dataset for meta learning, please contact **Prof. Son Lam Phung** at [phung@uow.edu.au](mailto:phung@uow.edu.au).
@@ -26,7 +26,7 @@ pip install -r requirements.txt
    Alternatively, you can download a pre-trained model from [here](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoX/ckpt_49.pth?csf=1&web=1&e=6jX5ob).  
    Place the downloaded model in the `trained_models/` directory.
 
-## Few-shot Learning
+## C. Few-shot Learning
 
 1. **Download Evaluation Datasets:**  
    To download the evaluation datasets for few-shot learning, please contact **Prof. Son Lam Phung** at [phung@uow.edu.au](mailto:phung@uow.edu.au).
@@ -38,9 +38,9 @@ pip install -r requirements.txt
    python few-shot-learning.py --input-folder evaluation-datasets/custom-dataset/forest
    ```
 
-## Observer Evaluations Setup
+## D. Observer Evaluations Setup
    You can find the Observer evaluation setup in the folder: `observer-evaluations`.
 
-## Experimental Results
+## E. Experimental Results
 
    Download the experimental results presented in the paper from [here](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoX/experimental-results.zip?csf=1&web=1&e=jAl1mT).

@@ -1,1 +1,3 @@
-You can download the Camo-Meta dataset for meta learning at [this link](https://uowmailedu-my.sharepoint.com/:u:/r/personal/ttpn997_uowmail_edu_au/Documents/supplementary-papers/CamoX/Camo-Meta.zip?csf=1&web=1&e=s0J0DB)
+This work is a collaboration between the Defence Innovation Network and the University of Wollongong, Australia.  
+
+For access to the dataset, please contact **Prof. Son Lam Phung** at [phung@uow.edu.au](mailto:phung@uow.edu.au).

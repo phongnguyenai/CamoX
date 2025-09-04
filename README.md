@@ -29,8 +29,7 @@ pip install -r requirements.txt
    python meta-learning.py
    ```
 
-   Alternatively, you can download a pre-trained model from [here](https://uowmailedu-my.sharepoint.com/:u:/g/personal/ttpn997_uowmail_edu_au/EYDwMNusqgRKq29ICeSs6jABFQRxMfR7j1WMGBjNz6jJTA?e=8DLFVl).  
-   Place the downloaded model in the `trained_models/` directory.
+   Alternatively, you can contact the authors for the pretrained model. Then, you can place the pretrained model in the `trained_models/` directory.
 
 ## C. Few-shot Learning
 

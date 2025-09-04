@@ -1,1 +1,3 @@
-The pre-trained model for meta learning can be downloaded at [this link](https://uowmailedu-my.sharepoint.com/:u:/g/personal/ttpn997_uowmail_edu_au/EYDwMNusqgRKq29ICeSs6jABFQRxMfR7j1WMGBjNz6jJTA?e=8DLFVl)
+This work is a collaboration between the Defence Innovation Network and the University of Wollongong, Australia.  
+
+For access to the pretrained model, please contact **Prof. Son Lam Phung** at [phung@uow.edu.au](mailto:phung@uow.edu.au).
